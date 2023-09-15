@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Team
+public class Team : IComparable<Team>
 {
     public string Abbreviation { get; set; }
     public string Name { get; set; }
@@ -59,5 +60,17 @@ public class Team
     public string GetStreakDisplay()
     {
         return Streak.Any() ? string.Join("|", Streak) : "-";
+    }
+    
+    // Implementing the IComparable interface for sorting
+    public int CompareTo(Team other)
+    {
+        if (this.Points != other.Points)
+            return other.Points.CompareTo(this.Points);
+        if (this.GoalDifference != other.GoalDifference)
+            return other.GoalDifference.CompareTo(this.GoalDifference);
+        if (this.GoalsFor != other.GoalsFor)
+            return other.GoalsFor.CompareTo(this.GoalsFor);
+        return this.Name.CompareTo(other.Name);
     }
 }
