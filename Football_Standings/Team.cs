@@ -65,12 +65,14 @@ public class Team : IComparable<Team>
     // Implementing the IComparable interface for sorting
     public int CompareTo(Team other)
     {
+        // Tiered comparison
         if (this.Points != other.Points)
-            return other.Points.CompareTo(this.Points);
+            return other.Points - this.Points;
         if (this.GoalDifference != other.GoalDifference)
-            return other.GoalDifference.CompareTo(this.GoalDifference);
+            return other.GoalDifference - this.GoalDifference;
         if (this.GoalsFor != other.GoalsFor)
-            return other.GoalsFor.CompareTo(this.GoalsFor);
+            return other.GoalsFor - this.GoalsFor;
+        // fallback
         return this.Name.CompareTo(other.Name);
     }
 }
