@@ -5,12 +5,13 @@ using System.IO;
 
 public static class CsvProcessor
 {
+    static string _rootDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
     public static (List<Team> teams, Dictionary<string, Team> teamMap) LoadTeamsFromCsv(string filepath)
     {
         var teams = new List<Team>();
         var teamMap = new Dictionary<string, Team>();
 
-        using (var reader = new StreamReader(filepath))
+        using (var reader = new StreamReader(Path.Combine(_rootDir, filepath)))
         {
             // Read to discard the header
             reader.ReadLine();
