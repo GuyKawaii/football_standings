@@ -19,10 +19,13 @@ RoundProcessor.ProcessRoundFiles(teamMapDictionary, "test");
 Console.WriteLine(teamMapDictionary);
 
 // display
-// StandingsDisplay.PrintCurrentStandings(teamsList);
+StandingsDisplay.PrintCurrentStandings(teamsList);
 
 // upper lower 10 rounds
 
 // display
-CsvGenerator.Generate22("test");
+
+
+// ### generate data ###
+// CsvGenerator.Generate22("test");
 
