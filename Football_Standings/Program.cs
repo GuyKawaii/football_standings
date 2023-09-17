@@ -14,12 +14,15 @@ Console.WriteLine("hello");
 StandingsDisplay.PrintCurrentStandings(teamsList);
 
 // loop(22) for round files 22
+Console.WriteLine(teamMapDictionary);
+RoundProcessor.ProcessRoundFiles(teamMapDictionary, "test");
+Console.WriteLine(teamMapDictionary);
 
 // display
-
+// StandingsDisplay.PrintCurrentStandings(teamsList);
 
 // upper lower 10 rounds
 
 // display
-// CsvGenerator.Generate22("test");
+CsvGenerator.Generate22("test");
 
