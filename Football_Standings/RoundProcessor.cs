@@ -1,21 +1,23 @@
 namespace Football_Standings;
 
-public class RoundProcessor
+public static class RoundProcessor
 {
-    public Dictionary<string, Team> ProcessRoundFiles(Dictionary<string, Team> teams)
+    static string _rootDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+    static public void ProcessRoundFiles(Dictionary<string, Team> dictTeams, string filepath)
     {
 
 
-        var teamMap = teams;
+        var teamMap = dictTeams;
 
 
-        using (var reader = new StreamReader(Path.Combine(_rootDir, filepath)))
+        using (var reader = new StreamReader(Path.Combine(_rootDir, filepath, "round-1.csv")))
         {
             // Read to discard the header
             reader.ReadLine();
 
             while (!reader.EndOfStream)
             {
+                //
                 var line = reader.ReadLine();
                 var values = line.Split(',');
 
@@ -43,20 +45,18 @@ public class RoundProcessor
                     }
                     
                     // Goal for & goal against
+                    //teamMap[values[0]].UpdateMatchResult(teamMap[values[3]],hometeamGoals,outteamGoals);
+                    //teamMap[values[1]].UpdateMatchResult();
                     
                     teamMap[values[0]].GoalsFor += hometeamGoals;
                     teamMap[values[2]].GoalsAgainst += outteamGoals;
-
                     teamMap[values[1]].GoalsFor += outteamGoals;
                     teamMap[values[3]].GoalsAgainst += hometeamGoals;
-
                 }
 
             }
             
         }
-
-        return teamMap;
 
     }
 }

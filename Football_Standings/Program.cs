@@ -11,15 +11,21 @@ Console.WriteLine("hello");
 // Console.WriteLine(LeagueProcessor.LoadLeagueFromCsv("E:\\Code\\RiderProjects\\FootballProject\\Football_Standings\\CsvFiles\\TestLeagueCsv.csv").LeagueName);
 
 // display 
-// StandingsDisplay.PrintCurrentStandings(teamsList);
+StandingsDisplay.PrintCurrentStandings(teamsList);
 
 // loop(22) for round files 22
+Console.WriteLine(teamMapDictionary);
+RoundProcessor.ProcessRoundFiles(teamMapDictionary, "test");
+Console.WriteLine(teamMapDictionary);
 
 // display
-
+// StandingsDisplay.PrintCurrentStandings(teamsList);
 
 // upper lower 10 rounds
 
 // display
-CsvGenerator.Generate22("test");
+
+
+// EXTRA generate dummy data
+// CsvGenerator.Generate22("test");
 
