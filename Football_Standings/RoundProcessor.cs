@@ -69,7 +69,24 @@ public static class RoundProcessor
                 //     teamMap[values[1]].GoalsFor += outteamGoals;
                 //     teamMap[values[3]].GoalsAgainst += hometeamGoals;
                 // }
-
+                
+                // var line = reader.ReadLine();
+                //
+                // Console.WriteLine(line);
+                // var values = line.Split(',');
+                //
+                // Team home =  dictTeams[values[0]];
+                // Team away =  dictTeams[values[2]];
+                // int homePoints = Int16.Parse(values[1]);
+                // int awayPoints = Int16.Parse(values[3]);
+                //
+                // if (!dictTeams.ContainsKey(values[0]) || !dictTeams.ContainsKey(values[2])) {
+                //     return;
+                // }
+                //
+                // home.UpdateMatchResult(away.Abbreviation, homePoints, awayPoints);
+                // away.UpdateMatchResult(home.Abbreviation, awayPoints, homePoints);
+                
             }
 
         }
