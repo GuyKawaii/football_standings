@@ -20,8 +20,9 @@ public static class RoundProcessor
                 //
                 var line = reader.ReadLine();
                 var values = line.Split(',');
-
-                if (teamMap.ContainsKey(values[0]) & teamMap.ContainsKey(values[2]))
+                
+                
+                if (teamMap.ContainsKey(values[0]) && teamMap.ContainsKey(values[2]))
                 {
                     var hometeamGoals = Int16.Parse(values[1]);
                     var outteamGoals = Int16.Parse(values[3]);
@@ -44,14 +45,17 @@ public static class RoundProcessor
                         teamMap[values[2]].Draws += 1;
                     }
                     
-                    // Goal for & goal against
-                    //teamMap[values[0]].UpdateMatchResult(teamMap[values[3]],hometeamGoals,outteamGoals);
-                    //teamMap[values[1]].UpdateMatchResult();
-                    
+                    // Games for and against for home and away teams
+                    //home
                     teamMap[values[0]].GoalsFor += hometeamGoals;
-                    teamMap[values[2]].GoalsAgainst += outteamGoals;
-                    teamMap[values[1]].GoalsFor += outteamGoals;
-                    teamMap[values[3]].GoalsAgainst += hometeamGoals;
+                    teamMap[values[0]].GoalsAgainst += outteamGoals;
+                    //away
+                    teamMap[values[2]].GoalsFor += outteamGoals;
+                    teamMap[values[2]].GoalsAgainst += hometeamGoals;
+                    
+                    // Games played
+                    teamMap[values[0]].GamesPlayed += 1;
+                    teamMap[values[2]].GamesPlayed += 1;
                 }
 
             }

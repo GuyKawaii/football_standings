@@ -18,6 +18,8 @@ Console.WriteLine(teamMapDictionary);
 RoundProcessor.ProcessRoundFiles(teamMapDictionary, "test");
 Console.WriteLine(teamMapDictionary);
 
+StandingsDisplay.PrintCurrentStandings(teamMapDictionary.Values.ToList());
+
 // display
 // StandingsDisplay.PrintCurrentStandings(teamsList);
 
