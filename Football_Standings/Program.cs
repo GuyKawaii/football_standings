@@ -10,7 +10,7 @@ var (teamsList, teamMapDictionary) = CsvProcessor.LoadTeamsFromCsv(Path.Combine(
 Console.WriteLine("hello");
 // Console.WriteLine(LeagueProcessor.LoadLeagueFromCsv("E:\\Code\\RiderProjects\\FootballProject\\Football_Standings\\CsvFiles\\TestLeagueCsv.csv").LeagueName);
 
-// display 
+// display
 StandingsDisplay.PrintCurrentStandings(teamsList);
 
 // loop(22) for round files 22
@@ -21,13 +21,13 @@ Console.WriteLine(teamMapDictionary);
 StandingsDisplay.PrintCurrentStandings(teamMapDictionary.Values.ToList());
 
 // display
-// StandingsDisplay.PrintCurrentStandings(teamsList);
+StandingsDisplay.PrintCurrentStandings(teamsList);
 
 // upper lower 10 rounds
 
 // display
 
 
-// EXTRA generate dummy data
+// ### generate data ###
 // CsvGenerator.Generate22("test");
 
