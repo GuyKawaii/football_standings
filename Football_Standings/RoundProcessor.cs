@@ -1,14 +1,14 @@
 namespace Football_Standings;
 
+
 public static class RoundProcessor
 {
     static string _rootDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-    static public void ProcessRoundFiles(Dictionary<string, Team> dictTeams, string filepath)
+    static public void ProcessRoundFile(Dictionary<string, Team> dictTeams, string filepath)
     {
 
-
         var teamMap = dictTeams;
-
+        
 
         using (var reader = new StreamReader(Path.Combine(_rootDir, filepath, "round-1.csv")))
         {
@@ -20,7 +20,13 @@ public static class RoundProcessor
                 //
                 var line = reader.ReadLine();
                 var values = line.Split(',');
-                
+
+                /* 
+                if (values[0] == values[2])
+                {
+                    throw new DoubleClassException("Error in Round-File. Teams can't fight themselves.");
+                }
+                */
                 
                 if (teamMap.ContainsKey(values[0]) && teamMap.ContainsKey(values[2]))
                 {

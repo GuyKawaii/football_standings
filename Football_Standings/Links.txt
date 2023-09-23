@@ -1,0 +1,2 @@
+// how to loop directory
+https://stackoverflow.com/questions/4254339/how-to-loop-through-all-the-files-in-a-directory-in-c-net

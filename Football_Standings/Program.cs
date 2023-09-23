@@ -15,7 +15,7 @@ StandingsDisplay.PrintCurrentStandings(teamsList);
 
 // loop(22) for round files 22
 Console.WriteLine(teamMapDictionary);
-RoundProcessor.ProcessRoundFiles(teamMapDictionary, "test");
+RoundProcessor.ProcessRoundFile(teamMapDictionary, "test");
 Console.WriteLine(teamMapDictionary);
 
 StandingsDisplay.PrintCurrentStandings(teamMapDictionary.Values.ToList());
