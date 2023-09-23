@@ -94,5 +94,10 @@ public static class TableDisplay
                 Console.WriteLine("");
             }
         }
+        
+        Console.WriteLine("upper");
+        upper.ForEach(team => Console.WriteLine(team.Abbreviation));
+        Console.WriteLine("lower");
+        lower.ForEach(team => Console.WriteLine(team.Abbreviation));
     }
 }

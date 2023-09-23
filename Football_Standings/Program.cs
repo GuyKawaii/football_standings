@@ -8,6 +8,7 @@ var (teamsList, teamMapDictionary) = CsvProcessor.LoadTeamsFromCsv(Path.Combine(
 var league = CsvProcessor.LoadLeagueFromCsv("test");
 
 CsvGenerator.Generate22("test");
+CsvGenerator.Generate10("test");
 RoundProcessor.ProcessLeague(teamMapDictionary, league, "test");
 
 
