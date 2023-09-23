@@ -1,0 +1,30 @@
+League name,Champions League,Conference League,Europa League,Relegation
+SuperLigaen,1,2,1,2
+
+
+[promotions] [relegation]
+
+sidste protion er for lower fration
+alle andre er for top af upper fraction
+relegation er for looser i lower fraction
+
+
+
+list af leagues
+// hmm
+leagues length - (number of relegation count + 1) => upper
+
+upper
+    Champions
+    Europa
+    Conference
+    ## from top give best league ##
+
+
+lower
+    last promotion [0] in the list is given to first place in lower group
+    relegations for last places
+
+leauge name, promotion cub1, promotion cub2, relegation
+
+
