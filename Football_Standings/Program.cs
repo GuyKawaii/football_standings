@@ -15,15 +15,19 @@ StandingsDisplay.PrintCurrentStandings(teamsList);
 
 // loop(22) for round files 22
 Console.WriteLine(teamMapDictionary);
-RoundProcessor.ProcessRoundFiles(teamMapDictionary, "test");
+// RoundProcessor.ProcessRoundFiles(teamMapDictionary, "test");
+// RoundProcessor.ProcessRound(teamMapDictionary, "test");
+RoundProcessor.ProcessLeague(teamMapDictionary, "test");
 Console.WriteLine(teamMapDictionary);
 
-StandingsDisplay.PrintCurrentStandings(teamMapDictionary.Values.ToList());
+// StandingsDisplay.PrintCurrentStandings(teamMapDictionary.Values.ToList());
 
 // display
-StandingsDisplay.PrintCurrentStandings(teamsList);
+// StandingsDisplay.PrintCurrentStandings(teamsList);
 
 // upper lower 10 rounds
+
+
 
 // display
 

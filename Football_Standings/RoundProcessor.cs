@@ -1,12 +1,13 @@
+using System.Diagnostics.Metrics;
+
 namespace Football_Standings;
 
 public static class RoundProcessor
 {
     static string _rootDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+
     static public void ProcessRoundFiles(Dictionary<string, Team> dictTeams, string filepath)
     {
-
-
         var teamMap = dictTeams;
 
 
@@ -20,8 +21,8 @@ public static class RoundProcessor
                 //
                 var line = reader.ReadLine();
                 var values = line.Split(',');
-                
-                
+
+
                 if (teamMap.ContainsKey(values[0]) && teamMap.ContainsKey(values[2]))
                 {
                     var hometeamGoals = Int16.Parse(values[1]);
@@ -44,7 +45,7 @@ public static class RoundProcessor
                         teamMap[values[0]].Draws += 1;
                         teamMap[values[2]].Draws += 1;
                     }
-                    
+
                     // Games for and against for home and away teams
                     //home
                     teamMap[values[0]].GoalsFor += hometeamGoals;
@@ -52,7 +53,7 @@ public static class RoundProcessor
                     //away
                     teamMap[values[2]].GoalsFor += outteamGoals;
                     teamMap[values[2]].GoalsAgainst += hometeamGoals;
-                    
+
                     // Games played
                     teamMap[values[0]].GamesPlayed += 1;
                     teamMap[values[2]].GamesPlayed += 1;
@@ -90,7 +91,7 @@ public static class RoundProcessor
                 //     teamMap[values[1]].GoalsFor += outteamGoals;
                 //     teamMap[values[3]].GoalsAgainst += hometeamGoals;
                 // }
-                
+
                 // var line = reader.ReadLine();
                 //
                 // Console.WriteLine(line);
@@ -107,13 +108,78 @@ public static class RoundProcessor
                 //
                 // home.UpdateMatchResult(away.Abbreviation, homePoints, awayPoints);
                 // away.UpdateMatchResult(home.Abbreviation, awayPoints, homePoints);
-                
             }
+        }
+    }
 
+
+    public static void ProcessLeague(Dictionary<string, Team> dictTeams, string filepath)
+    {
+        for (int i = 1; i <= 22; i++)
+        {
+            String completePath = Path.Combine(_rootDir, filepath, $"round-{i}.csv");
+
+            ProcessRound(dictTeams, completePath);
         }
 
+        // create fractions
+        List<Team> teams = dictTeams.Values.ToList();
+        teams.Sort();
+        teams.ForEach(team => team.ResetOpponents());
+
+        List<Team> upperFraction = teams.GetRange(0, 6);
+        List<Team> lowerFraction = teams.GetRange(6, 6);
+
+        // 
+
+        // for (int i = 0; i < 10; i++)
+        // {
+        //     String completePath = Path.Combine(_rootDir, filepath, $"round-{i}.csv");
+        //     
+        //     ProcessRound(dictTeams, completePath);
+        // }
+    }
+
+    public static void ProcessRound(Dictionary<string, Team> dictTeams, string filepath)
+    {
+        using (var reader = new StreamReader(filepath))
+        {
+            // Discard the header
+            reader.ReadLine();
+
+            // Read rows
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+
+                var values = line.Split(',');
+
+                Team home = dictTeams[values[0]];
+                Team away = dictTeams[values[2]];
+
+                int homePoints = int.Parse(values[1]);
+                int awayPoints = int.Parse(values[3]);
+
+                // discard invalid team match-up
+                if (!dictTeams.ContainsKey(values[0]) || !dictTeams.ContainsKey(values[2]))
+                {
+                    continue;
+                }
+
+                // check for match restrictions
+                if (away.hasPlayed(home.Abbreviation) ||
+                    home.hasPlayed(away.Abbreviation) ||
+                    away.Abbreviation == home.Abbreviation)
+                {
+                    Console.WriteLine("Prohibited: Repeated Matches with same opponent or Self");
+                    Console.WriteLine(filepath);
+                    break;
+                }
+
+
+                home.UpdateMatchResult(away.Abbreviation, homePoints, awayPoints, MatchLocation.Home);
+                away.UpdateMatchResult(home.Abbreviation, awayPoints, homePoints, MatchLocation.Outer);
+            }
+        }
     }
 }
-
-
-
