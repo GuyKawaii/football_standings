@@ -113,7 +113,7 @@ public static class RoundProcessor
     }
 
 
-    public static void ProcessLeague(Dictionary<string, Team> dictTeams, string filepath)
+    public static void ProcessLeague(Dictionary<string, Team> dictTeams, League leage, string filepath)
     {
         for (int i = 1; i <= 22; i++)
         {
@@ -129,15 +129,32 @@ public static class RoundProcessor
 
         List<Team> upperFraction = teams.GetRange(0, 6);
         List<Team> lowerFraction = teams.GetRange(6, 6);
+        Dictionary<string, Team> upperFractionDict = upperFraction.ToDictionary(team => team.Abbreviation, team => team);
+        Dictionary<string, Team> lowerFractionDict = upperFraction.ToDictionary(team => team.Abbreviation, team => team);
 
-        // 
-
-        // for (int i = 0; i < 10; i++)
+        // for (int i = 23; i <= 32; i++)
         // {
         //     String completePath = Path.Combine(_rootDir, filepath, $"round-{i}.csv");
-        //     
-        //     ProcessRound(dictTeams, completePath);
+
+        //     ProcessRound(upperFractionDict, completePath);
+        //     ProcessRound(lowerFractionDict, completePath);
         // }
+
+        // set special rankings
+        LeagueOld league = new LeagueOld("lala", 2, 1, 1, 1, 2);
+        upperFraction.ForEach(team =>
+            team.SpecialRanking =
+                (team.SpecialRanking == "R" || team.SpecialRanking == "P") ? "" : team.SpecialRanking);
+
+        lowerFraction.ForEach(team =>
+            team.SpecialRanking =
+                (team.SpecialRanking == "R" || team.SpecialRanking == "P") ? "" : team.SpecialRanking);
+
+        int totalPromotions = league.GetLeaguePromotions().Sum(position => position.Number);
+        int totalRelegations = league.GetLeagueRelegations().Sum(position => position.Number);
+
+
+        TableDisplay.PrintCurrentStandings(upperFraction, lowerFraction, league);
     }
 
     public static void ProcessRound(Dictionary<string, Team> dictTeams, string filepath)
@@ -167,10 +184,17 @@ public static class RoundProcessor
                 }
 
                 // check for match restrictions
-                if (away.hasPlayed(home.Abbreviation) ||
-                    home.hasPlayed(away.Abbreviation) ||
+                if (away.HasPlayed(home.Abbreviation, MatchLocation.Outer) ||
+                    home.HasPlayed(away.Abbreviation, MatchLocation.Home) ||
                     away.Abbreviation == home.Abbreviation)
                 {
+                    if (filepath == @"c:\Users\danie\UNRAID_SHARE\RiderProjects\Football_Standings\Football_Standings\test\round-12.csv
+")
+                    {
+                        Console.WriteLine("hello debug");
+                    }
+
+
                     Console.WriteLine("Prohibited: Repeated Matches with same opponent or Self");
                     Console.WriteLine(filepath);
                     break;
