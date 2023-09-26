@@ -1,86 +1,68 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Football_Standings;
+using Football_Standings.Exceptions;
 
-using Football_Standings;
-using Football_Standings.test;
-
-// ### generate data - COMMENT OUT ###
-// CsvGenerator.Generate22("test");
-// CsvGenerator.Generate10("test");
-
-// main loop for program (for the user to choose a scenario to play out)
-// userinput for choosing a type of test ie. what folder to read with
-
-
-
-
-// load teams and setup
-var (teamsList, teamMapDictionary) = CsvProcessor.LoadTeamsFromCsv(Path.Combine("test", "teams.csv"));
-League league = CsvProcessor.LoadLeagueFromCsv("test");
-
-
-
-// folder
-// RoundProcessor.ProcessLeague(teamMapDictionary, league, "test");
-// Console.WriteLine("they did the first");
-// sub folder
-// RoundProcessor.ProcessLeague(teamMapDictionary, league, Path.Combine("test", "playAgainstSelf"));
-// RoundProcessor.ProcessLeague(teamMapDictionary, league, Path.Combine("test", "sameOpponent"));
+// ### Keep disabled when not necessary ###
+// CsvGenerator.Generate22(Path.Combine("test", "wholeTournament"));
+// CsvGenerator.Generate10(Path.Combine("test", "wholeTournament"));
 
 bool running = true;
 while (running)
 {
-    // string input = """
-    // 1. run complete turnament 32 rounds
-    // 2. run test team playing itself
-    // 3. run test team playing itself
-    // [Enter] to quit
-    // """;
+    Console.WriteLine("Select an option:");
+    Console.WriteLine("1. Run complete tournament for 32 rounds");
+    Console.WriteLine("2. Run test team playing against itself");
+    Console.WriteLine("3. Run test team playing against each other");
+    Console.WriteLine("Press [Enter] to quit");
 
-    // Console.WriteLine(input);
-    Console.WriteLine("1. run complete turnament 32 rounds");
-    Console.WriteLine("2. run test team playing itself");
-    Console.WriteLine("Enter to quit");
     string userInput = Console.ReadLine();
 
-    switch (userInput)
+    if (string.IsNullOrEmpty(userInput))
     {
-        case "1":
-            RoundProcessor.ProcessLeague(teamMapDictionary, league, Path.Combine("test", "wholeTournament"));
-            break;
-        case "2":
-            RoundProcessor.ProcessLeague(teamMapDictionary, league, "test");
-            break;
-
-        default:
-            running = false;
-            break;
+        running = false;
+        continue;
     }
 
+    // Load teams and setup
+    var (teamsList, teamMapDictionary) = CsvProcessor.LoadTeamsFromCsv(Path.Combine("test", "teams.csv"));
+    League league = CsvProcessor.LoadLeagueFromCsv("test");
 
+    try
+    {
+        switch (userInput)
+        {
+            case "1":
+                RoundProcessor.ProcessLeague(teamMapDictionary, league, Path.Combine("test", "wholeTournament"));
+                break;
+            case "2":
+                RoundProcessor.ProcessLeague(teamMapDictionary, league, Path.Combine("test", "playAgainstSelf"));
+                break;
+            case "3":
+                RoundProcessor.ProcessLeague(teamMapDictionary, league, Path.Combine("test", "sameOpponent"));
+                break;
+            default:
+                running = false;
+                break;
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine("");
+        Console.WriteLine("!!! Scenario stopped !!!");
+
+        switch (e)
+        {
+            case SameTeamException:
+                Console.WriteLine($"Team has played against itself: {e.Message}");
+                break;
+            case DuplicateTeamException:
+                Console.WriteLine($"Teams have played each other before: {e.Message}");
+                break;
+            default:
+                Console.WriteLine("Other error");
+                Console.WriteLine(e.ToString());
+                break;
+        }
+    }
+
+    Console.WriteLine("");
 }
-
-
-
-// display
-// TableDisplay.PrintCurrentStandings(teamsList);
-
-// loop(22) for round files 22
-// Console.WriteLine(teamMapDictionary);
-// RoundProcessor.ProcessRoundFiles(teamMapDictionary, "test");
-// RoundProcessor.ProcessRound(teamMapDictionary, "test");
-// Console.WriteLine(teamMapDictionary);
-
-// StandingsDisplay.PrintCurrentStandings(teamMapDictionary.Values.ToList());
-
-// display
-// StandingsDisplay.PrintCurrentStandings(teamsList);
-
-// upper lower 10 rounds
-
-
-
-// display
-
-
-// ### generate data ###
-

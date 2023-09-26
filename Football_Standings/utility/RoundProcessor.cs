@@ -1,4 +1,5 @@
 using System.Diagnostics.Metrics;
+using Football_Standings.Exceptions;
 
 namespace Football_Standings;
 
@@ -30,8 +31,10 @@ public static class RoundProcessor
 
         List<Team> upperFraction = teams.GetRange(0, 6);
         List<Team> lowerFraction = teams.GetRange(6, 6);
-        Dictionary<string, Team> upperFractionDict = upperFraction.ToDictionary(team => team.Abbreviation, team => team);
-        Dictionary<string, Team> lowerFractionDict = lowerFraction.ToDictionary(team => team.Abbreviation, team => team);
+        Dictionary<string, Team> upperFractionDict =
+            upperFraction.ToDictionary(team => team.Abbreviation, team => team);
+        Dictionary<string, Team> lowerFractionDict =
+            lowerFraction.ToDictionary(team => team.Abbreviation, team => team);
 
         // set special rankings
         // LeagueOld league = new LeagueOld("lala", 2, 1, 1, 1, 2);
@@ -96,13 +99,15 @@ public static class RoundProcessor
 
 
                 // check for match restrictions
-                if (away.HasPlayed(home.Abbreviation, MatchLocation.Outer) ||
-                    home.HasPlayed(away.Abbreviation, MatchLocation.Home) ||
-                    away.Abbreviation == home.Abbreviation)
+                if (away.Abbreviation == home.Abbreviation)
                 {
-                    Console.WriteLine("Prohibited: Repeated Matches with same opponent or Self");
-                    Console.WriteLine(filepath);
-                    break;
+                    throw new SameTeamException($"{home.Abbreviation} in file:{filepath}");
+                }
+
+                if (away.HasPlayed(home.Abbreviation, MatchLocation.Outer) ||
+                    home.HasPlayed(away.Abbreviation, MatchLocation.Home))
+                {
+                    throw new DuplicateTeamException($"{home.Abbreviation} vs {away.Abbreviation} in file:{filepath}");
                 }
 
 

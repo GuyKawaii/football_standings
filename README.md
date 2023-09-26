@@ -14,21 +14,19 @@ This program requires:
 
 ### Round files
 
-**Purpose**\
+#### Purpose
 The program skims though 32 round files to get information about the matches
 
 #### File Naming
-Round files should be named like this:***round-*** + ***[Round Number]*** + ***.csv***
+Round files should be named like this: ***round-*** + ***[Round Number]*** + ***.csv***
 
 Naming example:
 ```
 round-4.csv
 ```
 
-#### Formatting
-The information should be formatted like this:
-
-The program automatically skips the first line, so the ```home,home goals,away,away goals```  ***Must*** be included first
+#### Content Formatting
+First line is descriptive of how each subsequent line is read, and the program automatically skips the first line, so the ```home,home goals,away,away goals```  ***Must*** be included first
 
 Formatting example:
 ```
@@ -48,21 +46,20 @@ AAB,1,SIF,1
 #### Purpose
 The setup file is used for information about the league itself
 
-### File Naming
+#### File Naming
 The setup file should just be called setup.csv
 
 Example:
 ```
 setup.csv
 ```
-#### Teams File
+#### Content Formatting
 First line in the file is descriptive to help with knowing what each value stands for:\
 ```League name,Champions League,Conference League,Europa League,Relegation```\
-Second line is what the program actually reads. It's organized like this:
+The program actually starts reading data from line 2. It's organized like this:
 ```
 Name of the league , Quantity of positions for Champions league promotion, Quantity of positions for Conference league promotion, e.t.c.
 ```
-
 
 Setup File Example:
 ```
@@ -70,6 +67,21 @@ League name,Champions League,Conference League,Europa League,Relegation
 SuperLigaen,1,2,1,2
 ```
 
+### Teams File
+
+#### Purpose
+The Teams file container information about each individual team
+
+#### File Naming
+The teams file should just be called teams.csv
+
+Example:
+```
+teams.csv
+```
+
+#### Content Formatting
+First line is descriptive of how each subsequent line is read, and the program automatically skips the first line, so the ```Abbreviation,Full club name,Special ranking```  ***Must*** be included first
 
 
 

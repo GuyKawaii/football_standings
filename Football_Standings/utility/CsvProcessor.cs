@@ -28,9 +28,6 @@ public static class CsvProcessor
 
         }
 
-        Console.WriteLine("Trying to return processed league: ");
-        Console.WriteLine(LeagueInfo);
-
         return LeagueInfo;
     }
 
