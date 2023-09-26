@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public enum MatchLocation {
+public enum MatchLocation
+{
     Home,
     Outer
 }
 
-public class Team : IComparable<Team> {
+public class Team : IComparable<Team>
+{
     public string Abbreviation { get; set; }
     public string Name { get; set; }
     public string SpecialRanking { get; set; }
@@ -26,7 +28,8 @@ public class Team : IComparable<Team> {
     private ISet<string> homeTeams;
     private ISet<string> outerTeams;
 
-    public Team(string abbreviation, string name, string specialRanking) {
+    public Team(string abbreviation, string name, string specialRanking)
+    {
         Abbreviation = abbreviation;
         Name = name;
         SpecialRanking = specialRanking;
@@ -35,63 +38,83 @@ public class Team : IComparable<Team> {
         outerTeams = new HashSet<string>();
     }
 
-    public void UpdateMatchResult(string opposingTeam, int goalsFor, int goalsAgainst, MatchLocation location) {
+    public void UpdateMatchResult(string opposingTeam, int goalsFor, int goalsAgainst, MatchLocation location)
+    {
         GamesPlayed++;
         GoalsFor += goalsFor;
         GoalsAgainst += goalsAgainst;
 
-        if (goalsFor > goalsAgainst) {
+        if (goalsFor > goalsAgainst)
+        {
             Wins++;
             UpdateStreak('W');
         }
-        else if (goalsFor == goalsAgainst) {
+        else if (goalsFor == goalsAgainst)
+        {
             Draws++;
             UpdateStreak('D');
         }
-        else {
+        else
+        {
             Losses++;
             UpdateStreak('L');
         }
 
         // Match location
-        if (location == MatchLocation.Home) 
+        if (location == MatchLocation.Home)
         {
             outerTeams.Add(opposingTeam);
         }
-        else if (location == MatchLocation.Outer) 
+        else if (location == MatchLocation.Outer)
         {
             homeTeams.Add(opposingTeam);
         }
-        else {
+        else
+        {
             throw new ArgumentException("Location has to be set");
         }
     }
 
-    private void UpdateStreak(char result) {
-        if (Streak.Count == 5) {
+    private void UpdateStreak(char result)
+    {
+        if (Streak.Count == 5)
+        {
             Streak.Dequeue();
         }
 
         Streak.Enqueue(result);
     }
 
-    public string GetStreakDisplay() {
+    public string GetStreakDisplay()
+    {
         return Streak.Any() ? string.Join("|", Streak) : "-";
     }
 
     // method to return if opposing team is played
-    public bool hasPlayed(string opponent) {
-        return outerTeams.Contains(opponent) || homeTeams.Contains(opponent);
+    public bool HasPlayed(string opponent, MatchLocation location)
+    {
+        switch (location)
+        {
+            case MatchLocation.Home:
+                return outerTeams.Contains(opponent);
+
+            case MatchLocation.Outer:
+                return homeTeams.Contains(opponent);
+            default:
+                throw new InvalidOperationException("Invalid Match Location");
+        }
     }
 
-    public void ResetOpponents() {
+    public void ResetOpponents()
+    {
         homeTeams.Clear();
         outerTeams.Clear();
     }
 
 
     // Implementing the IComparable interface for sorting
-    public int CompareTo(Team other) {
+    public int CompareTo(Team other)
+    {
         // Tiered comparison
         if (this.Points != other.Points)
             return other.Points - this.Points;
