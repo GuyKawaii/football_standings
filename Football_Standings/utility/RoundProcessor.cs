@@ -6,10 +6,13 @@ public static class RoundProcessor
 {
     static string _rootDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 
-    public static void ProcessLeague(Dictionary<string, Team> dictTeams, League leage, string filepath)
+    public static void ProcessLeague(Dictionary<string, Team> dictTeams, League league, string filepath)
     {
         // display initial
         List<Team> teams = dictTeams.Values.ToList();
+        Console.WriteLine("#####################");
+        Console.WriteLine("### Initial setup ###");
+        Console.WriteLine("#####################");
         TableDisplay.PrintCurrentStandings(teams);
 
 
@@ -28,19 +31,23 @@ public static class RoundProcessor
         List<Team> upperFraction = teams.GetRange(0, 6);
         List<Team> lowerFraction = teams.GetRange(6, 6);
         Dictionary<string, Team> upperFractionDict = upperFraction.ToDictionary(team => team.Abbreviation, team => team);
-        Dictionary<string, Team> lowerFractionDict = upperFraction.ToDictionary(team => team.Abbreviation, team => team);
+        Dictionary<string, Team> lowerFractionDict = lowerFraction.ToDictionary(team => team.Abbreviation, team => team);
 
         // set special rankings
-        LeagueOld league = new LeagueOld("lala", 2, 1, 1, 1, 2);
+        // LeagueOld league = new LeagueOld("lala", 2, 1, 1, 1, 2);
         teams.ForEach(team =>
             team.SpecialRanking =
                 (team.SpecialRanking == "R" || team.SpecialRanking == "P") ? "" : team.SpecialRanking);
 
         // get promotions
-        int totalPromotions = league.GetLeaguePromotions().Sum(position => position.Number);
-        int totalRelegations = league.GetLeagueRelegations().Sum(position => position.Number);
+        // int totalPromotions = league.GetLeaguePromotions().Sum(position => position.Number);
+        // int totalRelegations = league.GetLeagueRelegations().Sum(position => position.Number);
 
         // display initial fractions
+        Console.WriteLine("");
+        Console.WriteLine("######################################");
+        Console.WriteLine("### Rankings after first 22 rounds ###");
+        Console.WriteLine("######################################");
         TableDisplay.PrintCurrentStandings(upperFraction, lowerFraction, null);
 
         // each fraction play each other
@@ -53,6 +60,10 @@ public static class RoundProcessor
         }
 
         // display final standings
+        Console.WriteLine("");
+        Console.WriteLine("######################################");
+        Console.WriteLine("### FINAL Rankings after 32 rounds ###");
+        Console.WriteLine("######################################");
         TableDisplay.PrintCurrentStandings(upperFraction, lowerFraction, league);
     }
 

@@ -55,7 +55,7 @@ Example:
 ```
 setup.csv
 ```
-#### Formatting
+#### Teams File
 First line in the file is descriptive to help with knowing what each value stands for:\
 ```League name,Champions League,Conference League,Europa League,Relegation```\
 Second line is what the program actually reads. It's organized like this:
@@ -69,6 +69,8 @@ Setup File Example:
 League name,Champions League,Conference League,Europa League,Relegation
 SuperLigaen,1,2,1,2
 ```
+
+
 
 
 

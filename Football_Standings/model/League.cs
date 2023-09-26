@@ -5,29 +5,38 @@ public class League
     public string LeagueName { get; set; }
 
     public List<Position> UpperPromotions { get; set; }
-    public Position LowerPromotions { get; set; }
+    public List<Position> LowerPromotions { get; set; }
     public int LowerRelegations { get; set; }
 
 
-    public League(string leagueName, int positionsForChampions, int positionsForEurope, int positionsForConference,
+    public League(string leagueName, int positionChampions, int positionsForConference, int positionsForEurope,
          int positionsForRelegation)
     {
-        List<Position> promotions = new List<Position>();
-        if (positionsForChampions > 0)
+        List<Position> promotionsCategories = new List<Position>();
+        if (positionChampions > 0)
         {
-            promotions.Add(new Position("Champions League", positionsForChampions));
+            promotionsCategories.Add(new Position("Champions League", positionChampions));
         }
-        if (positionsForChampions > 0)
+        if (positionChampions > 0)
         {
-            promotions.Add(new Position("Conference League", positionsForConference));
+            promotionsCategories.Add(new Position("Conference League", positionsForConference));
         }
-        if (positionsForChampions > 0)
+        if (positionChampions > 0)
         {
-            promotions.Add(new Position("Europa League", positionsForEurope));
+            promotionsCategories.Add(new Position("Europa League", positionsForEurope));
         }
 
-        UpperPromotions = promotions.GetRange(0, promotions.Count - 2);
-        LowerPromotions = promotions[promotions.Count - 1];
+        UpperPromotions = promotionsCategories.GetRange(0, promotionsCategories.Count - 1);
+
+        LowerPromotions = new List<Position>
+        {
+            promotionsCategories[promotionsCategories.Count - 1]
+        };
         LowerRelegations = positionsForRelegation;
+
+
+        // Upper[[champ, 2], [conf, 3]]
+
+        // lower[]
     }
 }

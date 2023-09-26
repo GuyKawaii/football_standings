@@ -15,7 +15,7 @@ using Football_Standings.test;
 
 // load teams and setup
 var (teamsList, teamMapDictionary) = CsvProcessor.LoadTeamsFromCsv(Path.Combine("test", "teams.csv"));
-var league = CsvProcessor.LoadLeagueFromCsv("test");
+League league = CsvProcessor.LoadLeagueFromCsv("test");
 
 
 
@@ -45,7 +45,7 @@ while (running)
     switch (userInput)
     {
         case "1":
-            RoundProcessor.ProcessLeague(teamMapDictionary, league, "test");
+            RoundProcessor.ProcessLeague(teamMapDictionary, league, Path.Combine("test", "wholeTournament"));
             break;
         case "2":
             RoundProcessor.ProcessLeague(teamMapDictionary, league, "test");

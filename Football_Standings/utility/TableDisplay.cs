@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace Football_Standings;
 
 public static class TableDisplay
@@ -21,15 +23,17 @@ public static class TableDisplay
         }
     }
 
-    public static void PrintCurrentStandings(List<Team> upper, List<Team> lower, LeagueOld? league)
+    public static void PrintCurrentStandings(List<Team> upper, List<Team> lower, League? league)
     {
-        List<Position> promotions = null;
-        List<Position> relegations = null;
+        List<Position> promotionsUpper = null;
+        List<Position> promotionsLower = null;
+        int relegations = 0;
 
         if (league != null)
         {
-            promotions = league.GetLeaguePromotions();
-            relegations = league.GetLeagueRelegations();
+            promotionsUpper = league.UpperPromotions;
+            promotionsLower = league.LowerPromotions;
+            relegations = league.LowerRelegations;
         }
 
 
@@ -51,13 +55,13 @@ public static class TableDisplay
                 $"{i + 1,-8} | {upper[i].SpecialRanking,-12} | {upper[i].Name,-17} | {upper[i].GamesPlayed,3} | {upper[i].Wins,3} | {upper[i].Draws,3} | {upper[i].Losses,3} | {upper[i].GoalsFor,3} | {upper[i].GoalsAgainst,3} | {upper[i].GoalDifference,3} | {upper[i].Points,4} | {upper[i].GetStreakDisplay(),-9} |");
 
             // promotions
-            if (promotions?.Count > 0)
+            if (promotionsUpper?.Count > 0)
             {
-                Console.WriteLine($" {promotions[0].Name}");
+                Console.WriteLine($" {promotionsUpper[0].Name}");
 
-                if (--promotions[0].Number <= 0)
+                if (--promotionsUpper[0].Number <= 0)
                 {
-                    promotions.RemoveAt(0);
+                    promotionsUpper.RemoveAt(0);
                 }
             }
             else
@@ -79,20 +83,29 @@ public static class TableDisplay
             Console.Write(
                 $"{i + 1,-8} | {lower[i].SpecialRanking,-12} | {lower[i].Name,-17} | {lower[i].GamesPlayed,3} | {lower[i].Wins,3} | {lower[i].Draws,3} | {lower[i].Losses,3} | {lower[i].GoalsFor,3} | {lower[i].GoalsAgainst,3} | {lower[i].GoalDifference,3} | {lower[i].Points,4} | {lower[i].GetStreakDisplay(),-9} |");
 
-            // relegations ### todo not fixed for buttom up
-            if (promotions?.Count > 0)
-            {
-                Console.WriteLine($" {promotions[0].Name}");
 
-                if (--promotions[0].Number <= 0)
+            if (i >= lower.Count - relegations)
+            {
+                Console.Write(" Relegated");
+            }
+
+
+            // relegations ### todo not fixed for buttom up
+            if (promotionsLower?.Count > 0)
+            {
+                Console.WriteLine($" {promotionsLower[0].Name}");
+
+                if (--promotionsLower[0].Number <= 0)
                 {
-                    promotions.RemoveAt(0);
+                    promotionsLower.RemoveAt(0);
                 }
             }
             else
             {
                 Console.WriteLine("");
             }
+
+
         }
     }
 }
