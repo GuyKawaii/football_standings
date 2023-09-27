@@ -13,7 +13,7 @@ This program requires:
 ## Usage and interprotation
 ![Alt text](image.png)
 
-The output above is an example of a league being processed and summarizes the standings of the league.
+The output above is an example of a the lower fraction of a leauge being processed and summarizes the standings of the league.
 
 ***Special Mark***:
 * C for this leagues champion team
