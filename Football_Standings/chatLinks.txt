@@ -1,0 +1,30 @@
+
+// tuples return value
+https://chat.openai.com/share/0b5a7196-63af-475b-9468-b02a698ee7b0
+
+// get set of strings, interface, and changes to code
+https://chat.openai.com/share/7add24db-daeb-472a-880b-6a555108b696
+
+// use of exceptions
+https://chat.openai.com/share/ba5ae6fb-9589-408b-9bc9-2f973905ae14
+
+// update of our code (insperation)
+https://chat.openai.com/share/f3f74728-d74c-445e-b572-317e3dc91810
+
+// code cleanup
+https://chat.openai.com/share/85af2891-c221-4525-a28e-4c039efdb3f6
+
+// build and run C# project
+https://chat.openai.com/share/5a3af215-b6dd-46c1-9757-cfbae586a940
+
+// create dummy csv data from description
+https://chat.openai.com/share/8215a588-2aaa-46e9-b8e8-a97728526fea
+
+// get directory of working project files not \bin\Debug\net7.0
+https://chat.openai.com/share/696e42f0-ccfe-424f-af24-bab5c6431ffb'
+
+// get value from Dictionary
+https://chat.openai.com/share/e05772fa-7bbb-4b80-8543-24ee6cf97ab6
+
+// random number generator
+https://chat.openai.com/share/f7a9685b-f68d-4601-a3d5-a31accfebd6d
