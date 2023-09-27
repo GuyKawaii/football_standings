@@ -10,6 +10,28 @@ This program requires:
 * A setup file
 * a teams file
 
+## Usage and interprotation
+![Alt text](image.png)
+
+The output above is an example of a league being processed and summarizes the standings of the league.
+
+***Special Mark***:
+* C for this leagues champion team
+* W for the winner of last years league
+* P for teams promotd from last season
+* R for teams relegated from last season
+
+***GP***: games played\
+***W***: wins\
+***D***: draws\
+***L***: losses\
+***GF***: goals for\
+***GA***: goals against\
+***GD***: goal difference\
+***Pts***: points\
+***Streak***: last 5 games*\
+***Tier changes***: shows teams that have been promoted or relegated
+
 ## How to format information in your files
 
 ### Round files
@@ -25,10 +47,9 @@ Naming example:
 round-4.csv
 ```
 
+
 #### Content Formatting
-First line in the file is descriptive to help with knowing what each value stands for:\
-```home,home goals,away,away goals```\
-The program starts reading data from line 2.
+First line is descriptive of how each subsequent line is read, and the program automatically skips the first line, so the ```home,home goals,away,away goals```  ***Must*** be included first
 
 Formatting example:
 ```
@@ -58,7 +79,10 @@ setup.csv
 #### Content Formatting
 First line in the file is descriptive to help with knowing what each value stands for:\
 ```League name,Champions League,Conference League,Europa League,Relegation```\
-The program starts reading data from line 2.
+The program actually starts reading data from line 2. It's organized like this:
+```
+Name of the league , Quantity of positions for Champions league promotion, Quantity of positions for Conference league promotion, e.t.c.
+```
 
 Setup File Example:
 ```
@@ -80,26 +104,10 @@ teams.csv
 ```
 
 #### Content Formatting
-First line in the file is descriptive to help with knowing what each value stands for:\
-```Abbreviation,Full club name,Special ranking```\
-The program starts reading data from line 2.
+First line is descriptive of how each subsequent line is read, and the program automatically skips the first line, so the ```Abbreviation,Full club name,Special ranking```  ***Must*** be included first
 
-Teams File Example:
-```
-Abbreviation,Full club name,Special ranking
-FCK,FC Copenhagen,W
-BIF,Brondby IF,C
-AGF,Aarhus GF,P
-HBK,HB Køge,R
-VFF,Vejle Boldklub,
-AAB,Aalborg BK,
-SIF,Silkeborg IF,P
-RFC,Randers FC,
-EFC,Esbjerg fB,
-FCM,FC Midtjylland,
-FCN,FC Nordsjælland,
-HOB,Hobro IK,R
-```
+## Exceptions
+We handle exceptions such that the user can see what went wrong and in what file. The primary exceptions are for invalid matchup given in the round files given the teams loaded.
 
 
 

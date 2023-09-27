@@ -75,7 +75,7 @@ public static class TableDisplay
         Console.WriteLine(
             "Position | Special Mark | Club Name         | GP  |  W  |  D  |  L  | GF  | GA  | GD  | Pts  | Streak    | Tier Changes |");
         Console.WriteLine(
-            "---------|--------------|-------------------|-----|-----|-----|-----|-----|-----|-----|------|-----------| ------------1 |");
+            "---------|--------------|-------------------|-----|-----|-----|-----|-----|-----|-----|------|-----------| ------------ |");
 
         // Display the lower fraction standings
         for (int i = 0; i < lower.Count; i++)
