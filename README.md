@@ -10,7 +10,7 @@ This program requires:
 * A setup file
 * a teams file
 
-## Usage and interprotation
+## Usage and interpretation
 ![Alt text](image.png)
 
 The output above is an example of a the lower fraction of a leauge being processed and summarizes the standings of the league.
