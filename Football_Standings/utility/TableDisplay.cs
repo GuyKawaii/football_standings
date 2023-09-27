@@ -44,13 +44,29 @@ public static class TableDisplay
         // Header for the upper fraction
         Console.WriteLine("Upper Fraction Standings:");
         Console.WriteLine(
-            "Position | Special Mark | Club Name         | GP  |  W  |  D  |  L  | GF  | GA  | GD  | Pts  | Streak    | Promotion |");
+            "Position | Special Mark 1| Club Name         | GP  |  W  |  D  |  L  | GF  | GA  | GD  | Pts  | Streak    | Promotion |");
         Console.WriteLine(
             "---------|--------------|-------------------|-----|-----|-----|-----|-----|-----|-----|------|-----------| --------- |");
 
         // Display the upper fraction standings
         for (int i = 0; i < upper.Count; i++)
         {
+            if (promotionsUpper?.Count > 0)
+            {
+                switch (promotionsUpper[0].Name)
+                {
+                    case "Champions League":
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        break;
+                    case "Conference League":
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        break;
+                    case "Europa League":
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        break;
+                }
+            }
+
             Console.Write(
                 $"{i + 1,-8} | {upper[i].SpecialRanking,-12} | {upper[i].Name,-17} | {upper[i].GamesPlayed,3} | {upper[i].Wins,3} | {upper[i].Draws,3} | {upper[i].Losses,3} | {upper[i].GoalsFor,3} | {upper[i].GoalsAgainst,3} | {upper[i].GoalDifference,3} | {upper[i].Points,4} | {upper[i].GetStreakDisplay(),-9} |");
 
@@ -68,6 +84,8 @@ public static class TableDisplay
             {
                 Console.WriteLine("");
             }
+
+            Console.ResetColor();
         }
 
         // Header for the lower fraction
@@ -80,6 +98,28 @@ public static class TableDisplay
         // Display the lower fraction standings
         for (int i = 0; i < lower.Count; i++)
         {
+            // coloring
+            if (promotionsLower?.Count > 0)
+            {
+                switch (promotionsLower[0].Name)
+                {
+                    case "Champions League":
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        break;
+                    case "Conference League":
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        break;
+                    case "Europa League":
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        break;
+                }
+            }
+
+            if (i >= lower.Count - relegations)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+            }
+
             Console.Write(
                 $"{i + 1,-8} | {lower[i].SpecialRanking,-12} | {lower[i].Name,-17} | {lower[i].GamesPlayed,3} | {lower[i].Wins,3} | {lower[i].Draws,3} | {lower[i].Losses,3} | {lower[i].GoalsFor,3} | {lower[i].GoalsAgainst,3} | {lower[i].GoalDifference,3} | {lower[i].Points,4} | {lower[i].GetStreakDisplay(),-9} |");
 
@@ -105,7 +145,7 @@ public static class TableDisplay
                 Console.WriteLine("");
             }
 
-
+            Console.ResetColor();
         }
     }
 }
